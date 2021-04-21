@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div class="container">
+  <h3 class="text-info text-center mt-20">Pagination Example : Work bitch</h3>
+
+  <table class="table table-striped table-alignment mt-20 text-center">
+    <thead id="residentsTable">
+    <tr>
+      <th>City</th>
+      <th>Country</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="weather : ${weatherList.iterator()}">
+      <td th:text="${weather.getCity()}"></td>
+      <td th:text="${weather.getCountry()}"></td>
+    </tr>
+    </tbody>
+  </table>
+
+  <!-- Pagination control -->
+  <!-- Hardcoding the default page-size as 10. User can create a dropdown to select the different page-sizes. -->
+  <div class="row">
+    <div th:if="${totalPages > 1}">
+      <div>
+        Total Items: [[${totalPages}]]
+      </div>
+      <div>
+                <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+                    <a th:href="@{'/' + ${i} + '/10'}"
+                       th:if="${totalPages != i}">[[${i}]]</a>
+                    <span th:unless="${currentPage != i}">[[${i}]]</span>
+                </span>
+      </div>
+      <div>
+        <a th:href="@{'/' + ${currentPage + 1} + '/10'}"
+           th:if="${currentPage < totalPages}">
+          Next
+        </a>
+        <span th:unless="${currentPage < totalPages}">Next</span>
+      </div>
+      <div>
+        <a th:href="@{'/' + ${totalPages} + '/10'}"
+           th:if="${currentPage < totalPages}">
+          Last
+        </a>
+        <span th:unless="${currentPage < totalPages}">Last</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Product Manager</title>
+</head>
+<body>
+<div align="center">
+
+    <h1>Weather list</h1>
+    <br/><br/>
+
+    <table border="1" cellpadding="10">
+        <thead>
+        <tr>
+            <th>
+                <a>City </a>
+            </th>
+            <th>
+                <a>Country </a>
+            </th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="weather : ${weatherList}">
+            <td th:text="${weather.getCity()}">City</td>
+            <td th:text="${weather.getCountry()}">Country</td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <!-- With city -->
+    <div th:if="${totalPages > 1 && city != null}">
+        Total Items: [[${totalItems}]]
+        &nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;
+
+        <a th:if="${currentPage > 1}" th:href="@{'/?city=' + ${city} + '&page=' + 1}">First</a>
+        <span th:unless="${currentPage > 1}">First</span>
+
+        <a th:if="${currentPage > 1}" th:href="@{'/?city=' + ${city} + '&page=' + ${currentPage - 1}}">Previous</a>
+        <span th:unless="${currentPage > 1}">Previous</span>
+
+
+        <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+			<a th:if="${currentPage != i}" th:href="@{'/?city=' + ${city} + '&page=' + ${i}}">[[${i}]]</a>
+			<span th:unless="${currentPage != i}">[[${i}]]</span>
+			&nbsp;
+		</span>
+
+        <a th:if="${currentPage < totalPages}" th:href="@{'/?city=' + ${city} + '&page=' + ${currentPage + 1}}">Next</a>
+        <span th:unless="${currentPage < totalPages}">Next</span>
+        &nbsp;&nbsp;
+
+        <a th:if="${currentPage < totalPages}" th:href="@{'/?city=' + ${city} + '&page=' + ${totalPages}}">Last</a>
+        <span th:unless="${currentPage < totalPages}">Last</span>
+    </div>
+
+
+    <!--  Without city -->
+    <div th:if="${totalPages > 1 && city == null}">
+        Total Items: [[${totalItems}]]
+        &nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;
+
+        <a th:if="${currentPage < 2}" th:href="@{'/?city=null' + '&page=' + 1}">First</a>
+        <span th:unless="${currentPage < 2}">First</span>
+
+        <a th:if="${currentPage > 1}" th:href="@{'/?city=null' + '&page=' + ${currentPage - 1}}">Previous</a>
+        <span th:unless="${currentPage > 1}">Previous</span>
+
+
+        <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+			<a th:if="${currentPage == i}" th:href="@{'/?city=null' + '&page=' + ${i}}">[[${i}]]</a>
+			<span th:unless="${currentPage != i}">[[${i}]]</span>
+			&nbsp;
+		</span>
+
+        <a th:if="${currentPage < totalPages}" th:href="@{'/?city=null' + '&page='+ ${currentPage + 1}}">Next</a>
+        <span th:unless="${currentPage < totalPages}">Next</span>
+        &nbsp;&nbsp;
+
+        <a th:if="${currentPage < totalPages}" th:href="@{'/?city=null' + '&page='+ ${totalPages}}">Last</a>
+        <span th:unless="${currentPage < totalPages}">Last</span>
+    </div>
+
+
+</div>
+
+</body>
+</html>

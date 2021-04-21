@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Weather</title>
+</head>
+<body>
+<p>Need to show weather info</p>
+
+<label>City: </label>
+<a th:text="${weather.getCity()}">VALUE</a>
+<br/>
+<label>Country: </label>
+<a th:text="${weather.getCountry()}">VALUE</a>
+<br/>
+<label>Temp: </label>
+<a th:text="${weather.getTemp()}">VALUE</a>
+<br/>
+<label>Rh: </label>
+<a th:text="${weather.getRh()}">VALUE</a>
+<br/>
+<label>Clouds: </label>
+<a th:text="${weather.getClouds()}">VALUE</a>
+<br/>
+
+<label>Get answer time: </label>
+<a th:text="${weather.getCreatedDate()}">VALUE</a>
+<br/>
+<hr/>
+
+<form th:method="GET"
+      th:action="@{/{city}&{country}(city = ${weather.getCity()}, country = ${weather.getCountry()})}">
+  <input type="submit" value="Update"/>
+</form>
+
+<a th:href="@{/}">Return back</a>
+
+
+</body>
+</html>
