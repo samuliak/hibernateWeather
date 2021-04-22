@@ -10,4 +10,6 @@ public interface WeatherRepo extends CrudRepository<Weather, Integer> {
     Page<Weather> findAll(Pageable pageable);
 
     Page<Weather> findAllByCity(String city, Pageable pageable);
+
+    Page<Weather> getWeatherByCountry(String city, Pageable pageable);
 }

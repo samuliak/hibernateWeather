@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+</head>
+<body>
+
+<tr th:each="girla : ${man.getWomenSet()}">
+    <td th:text="${girla.getName()}"></td>
+    <td th:text="${girla.getName()}"></td>
+</tr>
+
+</body>
+</html>

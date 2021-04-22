@@ -60,4 +60,28 @@ public class WeatherController {
 
         return "index";
     }
+
+    @GetMapping("/test")
+    public String criteriaByCountry(
+            @RequestParam(name = "page", required = false, defaultValue = "1") int page,
+            Model model) {
+
+        Page<Weather> weatherPage;
+        List<Weather> weatherList;
+
+//        Pageable pageable = PageRequest.of(page - 1, 10);
+
+//        weatherPage = service.getWeatherByCountry("RU", pageable);
+        Object[] obj = service.getWeatherByCountry("UA", page);
+
+        int totalPages = (int) obj[0];
+        weatherList = (List<Weather>) obj[1];
+
+        model.addAttribute("city", null);
+        model.addAttribute("weatherList", weatherList);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalItems", weatherList.size());
+        model.addAttribute("totalPages", totalPages);
+        return "index";
+    }
 }
